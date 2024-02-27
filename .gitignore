@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-/cmd/web/assets/output.css
+cmd/web/assets/output.css
 
 # Test binary, built with "go test -c"
 *.test
