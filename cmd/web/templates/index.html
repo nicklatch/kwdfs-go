@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/assets/output.css">
-</head>
+{{ template "base-head" . }}
 <body class="flex flex-col h-screen max-w-screen justify-between px-4 py-2">
-<p class="text-center">Hello!</p>
-<h1 class="text-9xl">Other hello</h1>
+{{ template "header" }}
+<main>
+    <p class="text-center">Index!</p>
+</main>
+{{ template "footer" }}
 </body>
 </html>
