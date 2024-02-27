@@ -10,7 +10,11 @@ import (
 	"time"
 )
 
-var files = []string{"cmd/web/templates/index.html"}
+var files = []string{"cmd/web/templates/index.html",
+	"cmd/web/templates/base-head.html",
+	"cmd/web/templates/header.html",
+	"cmd/web/templates/footer.html",
+}
 
 type Server struct {
 	port int
