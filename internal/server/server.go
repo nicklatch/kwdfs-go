@@ -10,10 +10,16 @@ import (
 	"time"
 )
 
-var files = []string{"cmd/web/templates/index.html",
-	"cmd/web/templates/base-head.html",
-	"cmd/web/templates/header.html",
-	"cmd/web/templates/footer.html",
+var files = []string{
+	"cmd/web/templates/pages/index.html",
+	"cmd/web/templates/pages/login.html",
+	"cmd/web/templates/components/base-head.html",
+	"cmd/web/templates/components/header.html",
+	"cmd/web/templates/components/footer.html",
+	"cmd/web/templates/components/dealer-content.html",
+	"cmd/web/templates/components/locations-content.html",
+	"cmd/web/templates/components/customers-content.html",
+	"cmd/web/templates/components/content.html",
 }
 
 type Server struct {

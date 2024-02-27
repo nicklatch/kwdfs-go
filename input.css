@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    *, *::before, *::after {
+        @apply subpixel-antialiased transition-all
+    }
+
+    body {
+        @apply bg-gradient-to-b from-zinc-100 to-zinc-200
+    }
+}

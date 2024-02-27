@@ -1,0 +1,20 @@
+{{ define "header" }}
+<header class="flex justify-between items-center py-2 px-4 bg-zinc-700 text-white shadow-lg">
+    <a href="/" class="md:text-3xl sm:text-2xl text-center cursor-pointer"><span
+            class="text-red-700">Kenworth Dealer</span> Fleet Services</a>
+    <nav>
+        <ul class="flex md:text-xl font-semibold cursor-pointer">
+            <li class="px-1.5">
+                <button hx-get="/api/dealers" hx-push-url="/dealers" hx-target="#content">Dealers</button>
+            </li>
+            <li class="px-1.5">
+                <button hx-get="/locations" hx-push-url="true" hx-target="#content">Locations</button>
+            </li>
+            <li class="px-1.5">
+                <button hx-get="/customers" hx-push-url="true" hx-target="#content">Customers</button>
+            </li>
+            <li class="px-2 bg-red-700 rounded-md drop-shadow-md"><a href="/login">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+{{end}}
