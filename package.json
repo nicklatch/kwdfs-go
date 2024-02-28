@@ -3,6 +3,7 @@
     "tailwind-watch": "npx tailwindcss -i ./input.css -o ./cmd/web/assets/output.css --watch"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "tailwindcss": "^3.4.1"
   }
 }

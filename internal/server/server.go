@@ -16,10 +16,12 @@ var files = []string{
 	"cmd/web/templates/components/base-head.html",
 	"cmd/web/templates/components/header.html",
 	"cmd/web/templates/components/footer.html",
+	"cmd/web/templates/components/index-content.html",
 	"cmd/web/templates/components/dealer-content.html",
 	"cmd/web/templates/components/locations-content.html",
 	"cmd/web/templates/components/customers-content.html",
 	"cmd/web/templates/components/content.html",
+	"cmd/web/templates/components/maps.html",
 }
 
 type Server struct {

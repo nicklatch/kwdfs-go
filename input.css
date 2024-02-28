@@ -8,6 +8,6 @@
     }
 
     body {
-        @apply bg-gradient-to-b from-zinc-100 to-zinc-200
+        @apply bg-gradient-to-b from-gray-200 to-gray-400
     }
 }

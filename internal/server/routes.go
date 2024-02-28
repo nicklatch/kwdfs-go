@@ -6,33 +6,33 @@ import (
 	"nicklatch/kwdfs-go/cmd/web"
 )
 
+type PageData struct {
+	Title    string
+	Endpoint string
+}
+
 func (s *Server) RegisteredRoutes() http.Handler {
 
 	mux := http.NewServeMux()
+
 	fileServer := http.FileServer(http.FS(web.Files))
 	mux.Handle("/assets/*", fileServer)
-	mux.HandleFunc("/", s.RootHandler)
+
 	mux.HandleFunc("/login", s.LoginHandler)
+
+	mux.HandleFunc("/", s.RootHandler)
+	mux.HandleFunc("/api/index", s.IndexRootContentHandler)
 
 	mux.HandleFunc("/dealers", s.DealerHandler)
 	mux.HandleFunc("/api/dealers", s.DealerGetTable)
 
 	mux.HandleFunc("/locations", s.LocationHandler)
 	mux.HandleFunc("/api/locations", s.LocationsGetTable)
+
 	mux.HandleFunc("/customers", s.CustomerHandler)
 	mux.HandleFunc("/api/customers", s.CustomersGetTable)
 
 	return mux
-}
-
-func (s *Server) RootHandler(rw http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title string
-	}{Title: "Home"}
-	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
-	if err != nil {
-		log.Print(err)
-	}
 }
 
 func (s *Server) LoginHandler(rw http.ResponseWriter, r *http.Request) {
@@ -45,11 +45,26 @@ func (s *Server) LoginHandler(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (s *Server) RootHandler(rw http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title:    "Home",
+		Endpoint: "index",
+	}
+	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
+	if err != nil {
+		log.Print(err)
+	}
+}
+
+func (s *Server) IndexRootContentHandler(rw http.ResponseWriter, r *http.Request) {
+	err := s.tmpl.ExecuteTemplate(rw, "index-content.html", nil)
+	if err != nil {
+		log.Print(err)
+	}
+}
+
 func (s *Server) DealerHandler(rw http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title    string
-		Endpoint string
-	}{Title: "Dealers", Endpoint: "dealers"}
+	data := PageData{Title: "Dealers", Endpoint: "dealers"}
 	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
 	if err != nil {
 		log.Print(err)
@@ -64,9 +79,10 @@ func (s *Server) DealerGetTable(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) LocationHandler(rw http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title string
-	}{Title: "Locations"}
+	data := PageData{
+		Title:    "Locations",
+		Endpoint: "locations",
+	}
 	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
 	if err != nil {
 		log.Print(err)
@@ -81,9 +97,7 @@ func (s *Server) LocationsGetTable(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) CustomerHandler(rw http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title string
-	}{Title: "Customers"}
+	data := PageData{Title: "Customers", Endpoint: "customers"}
 	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
 	if err != nil {
 		log.Print(err)
@@ -91,7 +105,7 @@ func (s *Server) CustomerHandler(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) CustomersGetTable(rw http.ResponseWriter, r *http.Request) {
-	err := s.tmpl.ExecuteTemplate(rw, "customers-content.html", "")
+	err := s.tmpl.ExecuteTemplate(rw, "customers-content.html", "Customers")
 	if err != nil {
 		log.Print(err)
 	}
