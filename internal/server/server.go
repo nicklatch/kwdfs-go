@@ -11,16 +11,19 @@ import (
 )
 
 var files = []string{
+	// pages
 	"cmd/web/templates/pages/index.html",
 	"cmd/web/templates/pages/login.html",
-	"cmd/web/templates/components/base-head.html",
-	"cmd/web/templates/components/header.html",
-	"cmd/web/templates/components/footer.html",
+	// shared components
+	"cmd/web/templates/components/shared/base-head.html",
+	"cmd/web/templates/components/shared/header.html",
+	"cmd/web/templates/components/shared/footer.html",
+	"cmd/web/templates/components/shared/content.html",
+	// tables and other content components
 	"cmd/web/templates/components/index-content.html",
-	"cmd/web/templates/components/dealer-content.html",
-	"cmd/web/templates/components/locations-content.html",
-	"cmd/web/templates/components/customers-content.html",
-	"cmd/web/templates/components/content.html",
+	"cmd/web/templates/components/dealers-table.html",
+	"cmd/web/templates/components/locations-table.html",
+	"cmd/web/templates/components/customers-table.html",
 	"cmd/web/templates/components/maps.html",
 }
 

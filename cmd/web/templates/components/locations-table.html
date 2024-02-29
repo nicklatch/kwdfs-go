@@ -1,0 +1,43 @@
+{{ define "locations-table" }}
+<!--Htmx will swap in this title automatically-->
+<title>Locations</title>
+
+<div class="flex flex-col items-center bg-transparent h-full p-4">
+    <div class="flex justify-between items-center w-full pb-4">
+        <form>
+            <label for="inputSearch" class="sr-only">Search</label>
+            <input id="inputSearch" type="text" placeholder="&#128269; Search..."
+                   class="block w-64 rounded-lg border dark:border-none dark:bg-neutral-600 py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700"/>
+        </form>
+        <h1 class="text-center text-xl font-medium">Dealer Locations</h1>
+    </div>
+    <div class="overflow-auto rounded-lg border border-gray-200 w-full">
+        <table class="text-left text-sm whitespace-nowrap bg-gray-100 w-full overflow-auto">
+            <thead class="uppercase tracking-wider sticky top-0 text-white bg-zinc-700 shadow-md">
+            <tr class="px-2">
+                <th class="p-2">Dealer</th>
+                <th class="p-2">Branch Name</th>
+                <th class="p-2">City</th>
+                <th class="p-2">State</th>
+                <th class="p-2">General Phone</th>
+                <th class="p-2">Fleet Support Rep</th>
+                <th class="p-2">Fleet Support Rep Email</th>
+            </tr>
+            </thead>
+            <tbody class="rounded">
+            {{ range . }}
+            <tr class="border-t dark:border-neutral-900">
+                <th scope="row" class="px-2 py-4">{{.DealerName}}</th>
+                <td class="px-2 py-4">{{.BranchName}}</td>
+                <td class="px-2 py-4">{{.City}}</td>
+                <td class="px-2 py-4">{{.State}}</td>
+                <td class="px-2 py-4">{{.GeneralPhone}}</td>
+                <td class="px-2 py-4">{{.FleetSupportRep}}</td>
+                <td class="px-2 py-4">{{.FleetSupportRepEmail}}</td>
+            </tr>
+            {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{ end }}

@@ -24,7 +24,7 @@ func (s *Server) RegisteredRoutes() http.Handler {
 	mux.HandleFunc("/api/index", s.IndexRootContentHandler)
 
 	mux.HandleFunc("/dealers", s.DealerHandler)
-	mux.HandleFunc("/api/dealers", s.DealerGetTable)
+	mux.HandleFunc("/api/dealers", s.DealersGetTable)
 
 	mux.HandleFunc("/locations", s.LocationHandler)
 	mux.HandleFunc("/api/locations", s.LocationsGetTable)
@@ -63,24 +63,6 @@ func (s *Server) IndexRootContentHandler(rw http.ResponseWriter, r *http.Request
 	}
 }
 
-func (s *Server) LocationHandler(rw http.ResponseWriter, r *http.Request) {
-	data := PageData{
-		Title:    "Locations",
-		Endpoint: "locations",
-	}
-	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
-	if err != nil {
-		log.Print(err)
-	}
-}
-
-func (s *Server) LocationsGetTable(rw http.ResponseWriter, r *http.Request) {
-	err := s.tmpl.ExecuteTemplate(rw, "locations-content.html", "")
-	if err != nil {
-		log.Print(err)
-	}
-}
-
 func (s *Server) CustomerHandler(rw http.ResponseWriter, r *http.Request) {
 	data := PageData{Title: "Customers", Endpoint: "customers"}
 	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
@@ -90,7 +72,7 @@ func (s *Server) CustomerHandler(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) CustomersGetTable(rw http.ResponseWriter, r *http.Request) {
-	err := s.tmpl.ExecuteTemplate(rw, "customers-content.html", "Customers")
+	err := s.tmpl.ExecuteTemplate(rw, "customers-table.html", "Customers")
 	if err != nil {
 		log.Print(err)
 	}

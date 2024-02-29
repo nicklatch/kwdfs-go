@@ -1,8 +1,8 @@
 {{ define "header" }}
-<header class="flex justify-between items-center py-2 px-4 bg-neutral-900 text-white shadow-lg">
+<header class="flex justify-between items-center py-4 px-6 bg-neutral-900 text-white shadow-lg">
     <a href="/" class="md:text-2xl sm:text-xl text-center font-semibold drop-shadow-md"><span
             class="text-red-700 ">Kenworth Dealer</span> Fleet Services</a>
-    <nav>
+    <nav aria-label="Global">
         <ul class="flex md:text-lg space-x-4">
             <li>
                 <button hx-get="/api/dealers" hx-push-url="/dealers" hx-target="#content" >Dealers</button>

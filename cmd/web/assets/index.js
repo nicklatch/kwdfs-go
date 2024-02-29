@@ -1,6 +1,5 @@
 // Initialize and add the map
 let map;
-
 async function initMap() {
 
     const position = { lat: 44.953705, lng: -93.089958 };
@@ -16,8 +15,7 @@ async function initMap() {
     const marker = new AdvancedMarkerElement({
         map: map,
         position: position,
-        title: "Uluru",
+        title: "St. Paul",
     });
 }
-
 initMap();
