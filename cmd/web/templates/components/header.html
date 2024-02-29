@@ -1,5 +1,5 @@
 {{ define "header" }}
-<header class="flex justify-between items-center py-2 px-4 bg-zinc-700 text-white shadow-lg">
+<header class="flex justify-between items-center py-2 px-4 bg-neutral-900 text-white shadow-lg">
     <a href="/" class="md:text-2xl sm:text-xl text-center font-semibold drop-shadow-md"><span
             class="text-red-700 ">Kenworth Dealer</span> Fleet Services</a>
     <nav>
@@ -13,7 +13,7 @@
             <li>
                 <button hx-get="/api/customers" hx-push-url="/customers" hx-target="#content">Customers</button>
             </li>
-            <li class="px-6 bg-red-700 rounded-md shadow-md text-base"><a href="/login">Logout</a></li>
+            <li class="px-2 bg-red-700 rounded-md shadow-md text-base"><a href="/login">Logout</a></li>
         </ul>
     </nav>
 </header>

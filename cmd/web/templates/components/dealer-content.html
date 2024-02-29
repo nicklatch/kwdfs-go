@@ -1,66 +1,39 @@
+{{ define "dealer-content" }}
 <title>Dealers</title>
-<!-- Table responsive wrapper -->
-<div class="overflow-x-auto bg-gradient-to-b from-gray-200 to-gray-400 dark:bg-neutral-700 h-full px-4">
-    <!-- Search input -->
-    <div class="flex justify-between items-center p-4">
-        <div>
-            <label for="inputSearch" class="sr-only">Search</label>
-            <input id="inputSearch" type="text" placeholder="&#128269; Search..."
-                   class="block w-64 rounded-lg border dark:border-none dark:bg-neutral-600 py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700"/>
-        </div>
-        <h1 class="text-center font-medium">Dealer Groups</h1>
+<!-- Search input -->
+<div class="flex justify-between items-center p-4">
+    <div>
+        <label for="inputSearch" class="sr-only">Search</label>
+        <input id="inputSearch" type="text" placeholder="&#128269; Search..."
+               class="block w-64 rounded-lg border dark:border-none dark:bg-neutral-600 py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700"/>
     </div>
-    <!-- Table -->
-    <table class="rounded-lg min-w-full text-left text-sm whitespace-nowrap overflow-y-scroll bg-gray-100">
+    <h1 class="text-center font-medium">Dealer Groups</h1>
+</div>
+<!-- Table -->
+<div class="overflow-x-scroll overflow-y-scroll bg-gradient-to-b from-gray-200 to-gray-400 dark:bg-neutral-700 h-full px-4">
+
+    <table class=" rounded-lg min-w-full text-left text-sm whitespace-nowrap bg-gray-100">
         <!-- Table head -->
         <thead class="rounded-lg uppercase tracking-wider sticky top-0 text-white bg-zinc-700 shadow-md">
         <tr class="rounded-lg px-2">
-            <th scope="col" class="rounded-l-lg p-2">
-                Dealer
-            </th>
-            <th scope="col" class="p-2">
-                Address
-            </th>
-            <th scope="col" class="p-2">
-                State
-            </th>
-            <th scope="col" class="p-2">
-                Phone
-            </th>
-            <th scope="col" class="p-2 rounded-r-lg">
-                Director of Service
-            </th>
+            {{range .TableHeaders}}
+            <th class="p-2">{{.}}</th>
+            {{end}}
         </tr>
         </thead>
         <!-- Table body -->
         <tbody class="rounded-md">
+        {{ range .Dealers }}
         <tr class="border-b dark:border-neutral-600">
-            <th scope="row" class="p-2">
-                Rihm Kenworth
-            </th>
-            <td class="p-2">425 S. Concord Street, South St. Paul</td>
-            <td class="p-2">MN</td>
-            <td class="p-2">555-555-5555</td>
-            <td class="p-2">Kenny Huff</td>
+            <th scope="row" class="p-2">{{.DealerName}}</th>
+            <td class="p-2">{{.StreetAddress}}</td>
+            <td class="p-2">{{.State}}</td>
+            <td class="p-2">{{.Zip}}</td>
+            <td class="p-2">{{.GeneralPhone}}</td>
+            <td class="p-2">{{.DirectorOfService}}</td>
         </tr>
-        <tr class="border-b dark:border-neutral-600">
-            <th scope="row" class="p-2">
-                Rihm Kenworth
-            </th>
-            <td class="p-2">425 S. Concord Street, South St. Paul</td>
-            <td class="p-2">MN</td>
-            <td class="p-2">555-555-5555</td>
-            <td class="p-2">Kenny Huff</td>
-        </tr>
-        <tr class="border-b dark:border-neutral-600">
-            <th scope="row" class="p-2">
-                Rihm Kenworth
-            </th>
-            <td class="p-2">425 S. Concord Street, South St. Paul</td>
-            <td class="p-2">MN</td>
-            <td class="p-2">555-555-5555</td>
-            <td class="p-2">Kenny Huff</td>
-        </tr>
+        {{ end }}
         </tbody>
     </table>
 </div>
+{{ end }}

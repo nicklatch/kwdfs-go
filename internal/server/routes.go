@@ -63,21 +63,6 @@ func (s *Server) IndexRootContentHandler(rw http.ResponseWriter, r *http.Request
 	}
 }
 
-func (s *Server) DealerHandler(rw http.ResponseWriter, r *http.Request) {
-	data := PageData{Title: "Dealers", Endpoint: "dealers"}
-	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
-	if err != nil {
-		log.Print(err)
-	}
-}
-
-func (s *Server) DealerGetTable(rw http.ResponseWriter, r *http.Request) {
-	err := s.tmpl.ExecuteTemplate(rw, "dealer-content.html", "")
-	if err != nil {
-		log.Print(err)
-	}
-}
-
 func (s *Server) LocationHandler(rw http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:    "Locations",
