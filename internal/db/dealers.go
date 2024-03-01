@@ -1,9 +1,7 @@
 package db
 
 import (
-	"encoding/json"
 	"log"
-	"os"
 )
 
 type Dealer struct {
@@ -19,17 +17,26 @@ type Dealer struct {
 
 // these will just read from json file until I can run local docker db's
 
-func GetAllDealerGroups() []Dealer {
-	file, err := os.ReadFile("internal/db/dealerDB.json")
+func (s *service) GetAllDealerGroups() []Dealer {
+	//file, err := os.ReadFile("internal/db/dealerDB.json")
+	//if err != nil {
+	//	log.Println(err)
+	//}
+
+	q := `select ?, ?, ?, ? from dealers`
+	rows, err := s.db.Query(q, "dealer", "street_address", "state", "zip", "general_phone")
 	if err != nil {
 		log.Println(err)
 	}
+	defer rows.Close()
+
 	var dealers []Dealer
 
-	err = json.Unmarshal(file, &dealers)
-	if err != nil {
-		log.Println(err)
-	}
+	//left off here need to get rows into proper type
+	//err = json.Unmarshal(, &dealers)
+	//if err != nil {
+	//	log.Println(err)
+	//}
 
 	return dealers
 }
