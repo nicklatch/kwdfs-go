@@ -9,16 +9,7 @@ ___
 - [ ] queries
 
 ### Templates
-  - /components
-    - dealers-table 
-      - [x] base html
-      - [ ] Use htmx to implement search
-      - [ ] Add add/edit/delete/view functionality for rows
-  - [ ] locations-table
-    - [ ] base html
-  - [ ] customers-table
-      - [ ] base html
-  - general
+- [ ] Make *-table.html's a single composable template 
 
 ### API
 - Endpoints still needed
@@ -34,3 +25,7 @@ ___
 - [ ] auth
 - [ ] styling
 ___
+
+## Future Updates
+- [ ] Swap out database/sql for sqlc or sqlx
+- [ ] data and template caching (data is not updated that often)
