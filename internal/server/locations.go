@@ -3,7 +3,6 @@ package server
 import (
 	"log"
 	"net/http"
-	"nicklatch/kwdfs-go/internal/db"
 )
 
 func (s *Server) LocationHandler(rw http.ResponseWriter, r *http.Request) {
@@ -13,16 +12,22 @@ func (s *Server) LocationHandler(rw http.ResponseWriter, r *http.Request) {
 	}
 	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
 	if err != nil {
-		log.Print(err)
+		log.Fatalln(err)
 	}
 }
 
-// This will need to utilize a join to get the dealer name from
-// their respective UUID
-
 func (s *Server) LocationsGetTable(rw http.ResponseWriter, r *http.Request) {
-	err := s.tmpl.ExecuteTemplate(rw, "locations-table", db.GetAllLocations())
+	data, err := s.db.GetAllLocations()
 	if err != nil {
-		log.Print(err)
+		log.Println(err)
+		rw.WriteHeader(400) // TODO: tmpl fragment to return
 	}
+
+	err = s.tmpl.ExecuteTemplate(rw, "locations-table", data)
+	if err != nil {
+		log.Println(err)
+		rw.WriteHeader(500) // TODO: tmpl fragment to return
+	}
+
+	log.Printf("LocationsGetTable: Method=%v", r.Method)
 }
