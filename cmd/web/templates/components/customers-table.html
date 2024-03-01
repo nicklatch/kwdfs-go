@@ -1,44 +1,47 @@
-<title>Customers</title>
-<!-- Table responsive wrapper -->
-<div class="overflow-x-auto bg-gradient-to-b from-gray-200 to-gray-400 dark:bg-neutral-700 h-full px-4">
-    <!-- Search input -->
-    <div class="flex justify-between items-center p-4">
-        <div>
+{{ define "customers-table" }}
+<!--Htmx will swap in this title automatically-->
+<title>Locations</title>
+
+<div class="flex flex-col items-center bg-transparent h-full p-4">
+    <div class="flex justify-between items-center w-full pb-4">
+        <form>
             <label for="inputSearch" class="sr-only">Search</label>
             <input id="inputSearch" type="text" placeholder="&#128269; Search..."
-                   class="block w-64 rounded-lg border dark:border-none dark:bg-neutral-600 py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700"/>
-        </div>
-        <h1 class="text-center font-medium">Customer Information</h1>
+                   class="shadow-md block w-64 rounded-lg border dark:border-none dark:bg-neutral-600 py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700"/>
+        </form>
+        <h1 class="text-center text-xl font-medium">Customer List</h1>
     </div>
-    <!-- Table -->
-    <table class="rounded-lg min-w-full text-left text-sm whitespace-nowrap overflow-y-scroll bg-gray-100">
-        <!-- Table head -->
-        <thead class="rounded-lg uppercase tracking-wider sticky top-0 text-white bg-zinc-700 shadow-md">
-        <tr class="rounded-lg px-2">
-            <th scope="col" class="p-2">Name</th>
-            <th scope="col" class="rounded-l-lg p-2">Dealer</th>
-            <th scope="col" class="p-2">State</th>
-            <th scope="col" class="p-2">Paccar Fleet Acct. Number</th>
-            <th scope="col" class="p-2">Truck Count</th>
-            <th scope="col" class="p-2">Fleet Support Rep</th>
-            <th scope="col" class="p-2">Field Service Rep</th>
-            <th scope="col" class="p-2">Field Service Rep Email</th>
-            <th scope="col" class="p-2 rounded-r-lg">Status</th>
-        </tr>
-        </thead>
-        <!-- Table body -->
-        <tbody class="rounded-md">
-        <tr class="border-b dark:border-neutral-600">
-            <th scope="row" class="p-2">Long Haul</th>
-            <td class="p-2">Rihm Kenworth</td>
-            <td class="p-2">MN</td>
-            <td class="p-2">-</td>
-            <td class="p-2">200</td>
-            <td class="p-2">Nick Latcham</td>
-            <td class="p-2">-</td>
-            <td class="p-2">-</td>
-            <td class="p-2">National</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto rounded-lg border border-gray-200 w-full">
+        <table class="text-left text-sm whitespace-nowrap bg-gray-100 w-full overflow-auto">
+            <thead class="uppercase tracking-wider sticky top-0 text-white bg-neutral-900 shadow-md">
+            <tr class="px-2">
+                <th class="p-2">Dealer</th>
+                <th class="p-2">Customer Name</th>
+                <th class="p-2">State</th>
+                <th class="p-2">PFLEET Acct. #</th>
+                <th class="p-2">Status</th>
+                <th class="p-2">Truck Qty</th>
+                <th class="p-2">Fleet Support Rep</th>
+                <th class="p-2">Field Support Rep</th>
+                <th class="p-2">Field Support Rep Email</th>
+            </tr>
+            </thead>
+            <tbody class="rounded">
+            {{ range . }}
+            <tr class="border-t dark:border-neutral-900">
+                <th scope="row" class="px-2 py-4">{{.SponsoringDealer}}</th>
+                <td class="px-2 py-4">{{.Name}}</td>
+                <td class="px-2 py-4">{{.State}}</td>
+                <td class="px-2 py-4">{{.PfleetAcctId}}</td>
+                <td class="px-2 py-4">{{.Status}}</td>
+                <td class="px-2 py-4">{{.TruckQty}}</td>
+                <td class="px-2 py-4">{{.FleetSupportRep}}</td>
+                <td class="px-2 py-4">{{.FieldServiceRep}}</td>
+                <td class="px-2 py-4">{{.FieldServiceRepEmail}}</td>
+            </tr>
+            {{ end }}
+            </tbody>
+        </table>
+    </div>
 </div>
+{{ end }}
