@@ -5,7 +5,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"html/template"
 	"net/http"
-	db2 "nicklatch/kwdfs-go/internal/db"
+	"nicklatch/kwdfs-go/internal/database"
 	"os"
 	"strconv"
 	"time"
