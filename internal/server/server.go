@@ -31,7 +31,7 @@ var files = []string{
 type Server struct {
 	port int
 	tmpl *template.Template
-	db   db2.Service
+	db   database.Service
 }
 
 func NewServer() *http.Server {
@@ -39,7 +39,7 @@ func NewServer() *http.Server {
 	NewServer := &Server{
 		port: port,
 		tmpl: template.Must(template.ParseFiles(files...)),
-		db:   db2.New(),
+		db:   database.New(),
 	}
 
 	server := &http.Server{
