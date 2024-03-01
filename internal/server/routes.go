@@ -35,7 +35,7 @@ func (s *Server) RegisteredRoutes() http.Handler {
 	return mux
 }
 
-func (s *Server) LoginHandler(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) LoginHandler(rw http.ResponseWriter, _ *http.Request) {
 	data := struct {
 		Title string
 	}{Title: "Login"}
@@ -45,7 +45,7 @@ func (s *Server) LoginHandler(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *Server) RootHandler(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) RootHandler(rw http.ResponseWriter, _ *http.Request) {
 	data := PageData{
 		Title:    "Home",
 		Endpoint: "index",
@@ -56,7 +56,7 @@ func (s *Server) RootHandler(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *Server) IndexRootContentHandler(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) IndexRootContentHandler(rw http.ResponseWriter, _ *http.Request) {
 	err := s.tmpl.ExecuteTemplate(rw, "index-content.html", nil)
 	if err != nil {
 		log.Print(err)
