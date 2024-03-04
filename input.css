@@ -10,4 +10,28 @@
     body {
         @apply bg-gradient-to-b from-gray-200 to-gray-400
     }
+
+    header, footer, thead {
+        @apply bg-neutral-900
+    }
+
+    thead {
+        @apply uppercase tracking-wider sticky top-0 text-white shadow-md
+    }
+
+    tbody {
+        @apply rounded
+    }
+
+    tbody > tr {
+        @apply border-t
+    }
+
+    th {
+        @apply p-2
+    }
+
+    td {
+        @apply px-2 py-4
+    }
 }

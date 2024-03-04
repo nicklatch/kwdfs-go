@@ -2,12 +2,12 @@ package database
 
 import (
 	"log"
-	"nicklatch/kwdfs-go/internal/domain"
+	"nicklatch/kwdfs-go/internal/model"
 )
 
 // GetAllCustomers is a Service method that returns
 // either a slice of all customers, or an error
-func (s Service) GetAllCustomers() ([]domain.Customer, error) {
+func (s Service) GetAllCustomers() ([]model.Customer, error) {
 	// see ./dealers for comments to explain what takes place below
 	rows, err := s.db.Query(`
 select
@@ -24,10 +24,10 @@ from
 	}
 	defer rows.Close()
 
-	var customers []domain.Customer
+	var customers []model.Customer
 
 	for rows.Next() {
-		var c domain.Customer
+		var c model.Customer
 		if err := rows.Scan(&c.SponsoringDealer, &c.Name, &c.State, &c.PfleetAcctId,
 			&c.Status, &c.TruckQty, &c.FleetSupportRep, &c.FieldServiceRep, &c.FieldServiceRepEmail); err != nil {
 			return nil, err

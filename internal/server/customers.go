@@ -19,6 +19,7 @@ func (s *Server) customersGetTable(rw http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		rw.WriteHeader(400) // TODO: tmpl fragment to return
 	}
+
 	err = s.tmpl.ExecuteTemplate(rw, "customers-table", customerData)
 	if err != nil {
 		log.Println(err)

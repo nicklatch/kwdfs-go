@@ -2,40 +2,40 @@
 <!--Htmx will swap in this title automatically-->
 <title>Dealers</title>
 
-<div class="flex flex-col items-center bg-transparent h-full p-4">
+<div class="flex flex-col items-center h-full p-4">
     <div class="flex justify-between items-center w-full pb-4">
         <div>
             <label for="inputSearch" class="sr-only">Search</label>
             <input id="inputSearch" type="text" placeholder="&#128269; Search..."
-                   class="shadow-md block w-64 rounded-lg border py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700 drop-shadow-md"/>
+                   class="shadow-md block w-64 rounded-lg border dark:border-none dark:bg-neutral-600 py-2 px-4 text-sm focus:outline-none focus:ring-4 focus:ring-red-700"/>
         </div>
         <h1 class="text-center text-xl font-medium">Dealer Groups</h1>
     </div>
     <div class="overflow-auto rounded-lg border border-gray-200 w-full">
-    <table class="text-left text-sm whitespace-nowrap bg-gray-100 w-full overflow-auto">
-        <thead class="uppercase tracking-wider sticky top-0 text-white bg-neutral-900 shadow-md">
-        <tr class="px-2">
-            <th class="p-2">Dealer</th>
-            <th class="p-2">Address</th>
-            <th class="p-2">State</th>
-            <th class="p-2">Zip</th>
-            <th class="p-2">General Phone</th>
-            <th class="p-2">Director Of Service</th>
-        </tr>
-        </thead>
-        <tbody class="rounded">
-        {{ range . }}
-        <tr class="border-t dark:border-neutral-900">
-            <th scope="row" class="px-2 py-4">{{.DealerName}}</th>
-            <td class="px-2 py-4">{{.StreetAddress}}</td>
-            <td class="px-2 py-4">{{.State}}</td>
-            <td class="px-2 py-4">{{.Zip}}</td>
-            <td class="px-2 py-4">{{.GeneralPhone}}</td>
-            <td class="px-2 py-4">{{.DirectorOfService}}</td>
-        </tr>
-        {{ end }}
-        </tbody>
-    </table>
+        <table class="text-left text-sm whitespace-nowrap bg-gray-100 w-full overflow-auto">
+            <thead>
+            <tr>
+                <th>Dealer</th>
+                <th>Address</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>General Phone</th>
+                <th>Director Of Service</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ range . }}
+            <tr class="border-t dark:border-neutral-900">
+                <th scope="row" class="px-2 py-4">{{.DealerName}}</th>
+                <td>{{.StreetAddress}}</td>
+                <td>{{.State}}</td>
+                <td>{{.Zip}}</td>
+                <td>{{.GeneralPhone}}</td>
+                <td>{{.DirectorOfService}}</td>
+            </tr>
+            {{ end }}
+            </tbody>
+        </table>
     </div>
 </div>
 {{ end }}

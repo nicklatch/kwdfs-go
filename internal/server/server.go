@@ -20,6 +20,7 @@ var files = []string{
 	"cmd/web/templates/components/shared/header.html",
 	"cmd/web/templates/components/shared/footer.html",
 	"cmd/web/templates/components/shared/content.html",
+	"cmd/web/templates/components/shared/close.html",
 	// tables and other content components
 	"cmd/web/templates/components/index-content.html",
 	"cmd/web/templates/components/dealers-table.html",

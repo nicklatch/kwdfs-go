@@ -2,12 +2,12 @@ package database
 
 import (
 	"log"
-	"nicklatch/kwdfs-go/internal/domain"
+	"nicklatch/kwdfs-go/internal/model"
 )
 
 // GetAllLocations is a Service method that returns
 // either a slice of all locations, or an error
-func (s Service) GetAllLocations() ([]domain.Location, error) {
+func (s Service) GetAllLocations() ([]model.Location, error) {
 	// see ./dealers for comments to explain what takes place below
 	rows, err := s.db.Query(`
 select
@@ -24,10 +24,10 @@ from
 	}
 	defer rows.Close()
 
-	var locations []domain.Location
+	var locations []model.Location
 
 	for rows.Next() {
-		var l domain.Location
+		var l model.Location
 		if err := rows.Scan(&l.DealerName, &l.BranchName, &l.State, &l.City,
 			&l.FleetSupportRep, &l.FleetSupportRepEmail, &l.GeneralPhone); err != nil {
 			return nil, err

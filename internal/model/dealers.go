@@ -1,4 +1,4 @@
-package domain
+package model
 
 type Dealer struct {
 	Id                string `json:"id"`
