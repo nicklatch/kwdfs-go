@@ -22,7 +22,6 @@ from
 		log.Println(err)
 		return nil, err
 	}
-	defer rows.Close()
 
 	var customers []model.Customer
 
@@ -40,4 +39,27 @@ from
 	}
 
 	return customers, nil
+}
+
+func (s Service) GetOneCustomer(name string) (model.Customer, error) {
+	row := s.db.QueryRow(`
+select
+  d.dealer, c.name, c.state, c.pfleet_acct_id, c.status, c.truck_qty,
+  c.fleet_support_rep, c.field_service_rep, c.field_service_rep_email
+from
+  customers c
+  inner join dealers d on c.dealer = d.id
+where name like '%?%'
+`, name)
+
+	var c model.Customer
+	err := row.Scan(&c.SponsoringDealer, &c.Name, &c.State, &c.PfleetAcctId,
+		&c.Status, &c.TruckQty, &c.FleetSupportRep, &c.FieldServiceRep, &c.FieldServiceRepEmail)
+
+	if err != nil {
+		log.Println(err)
+		return model.Customer{}, err
+	}
+
+	return c, nil
 }

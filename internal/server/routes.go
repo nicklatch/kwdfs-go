@@ -16,21 +16,22 @@ func (s *Server) RegisteredRoutes() http.Handler {
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(http.FS(web.Files))
-	mux.Handle("/assets/*", fileServer)
+	mux.Handle("GET /assets/*", fileServer)
 
-	mux.HandleFunc("/login", s.loginHandler)
+	mux.HandleFunc("GET /login", s.loginHandler)
 
-	mux.HandleFunc("/", s.rootHandler)
-	mux.HandleFunc("/api/index", s.indexRootContentHandler)
+	mux.HandleFunc("GET /", s.rootHandler)
+	mux.HandleFunc("GET /api/index", s.indexRootContentHandler)
 
-	mux.HandleFunc("/dealers", s.dealerHandler)
-	mux.HandleFunc("/api/dealers", s.dealersGetTable)
+	mux.HandleFunc("GET /dealers", s.dealerHandler)
+	mux.HandleFunc("GET /api/dealers", s.dealersGetTable)
 
-	mux.HandleFunc("/locations", s.locationHandler)
-	mux.HandleFunc("/api/locations", s.locationsGetTable)
+	mux.HandleFunc("GET /locations", s.locationHandler)
+	mux.HandleFunc("GET /api/locations", s.locationsGetTable)
 
-	mux.HandleFunc("/customers", s.customerHandler)
-	mux.HandleFunc("/api/customers", s.customersGetTable)
+	mux.HandleFunc("GET /customers", s.customerHandler)
+	mux.HandleFunc("GET /api/customers", s.customersGetTable)
+	mux.HandleFunc("GET /api/customers/{name}", s.customersGetOne)
 
 	return mux
 }
