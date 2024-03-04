@@ -2,22 +2,12 @@ package database
 
 import (
 	"log"
+	"nicklatch/kwdfs-go/internal/domain"
 )
-
-type Dealer struct {
-	Id                string `json:"id"`
-	DealerName        string `json:"dealer"`
-	StreetAddress     string `json:"street_address"`
-	State             string `json:"state"`
-	Zip               string `json:"zip"`
-	GeneralPhone      string `json:"general_phone"`
-	DirectorOfService string `json:"director_of_service"`
-	LogoURL           any    `json:"logo_url"`
-}
 
 // GetAllDealerGroups is a Service method that returns either a
 // slice of all dealers, or an error
-func (s Service) GetAllDealerGroups() ([]Dealer, error) {
+func (s Service) GetAllDealerGroups() ([]domain.Dealer, error) {
 	// make db query and check for error
 	rows, err := s.db.Query("SELECT * FROM dealers")
 	if err != nil {
@@ -29,11 +19,11 @@ func (s Service) GetAllDealerGroups() ([]Dealer, error) {
 	// defer its closing until the end of this scope
 	defer rows.Close()
 
-	var dealers []Dealer
+	var dealers []domain.Dealer
 
 	// iterates through our row results, unmarshalls them into the dealers slice above
 	for rows.Next() {
-		var d Dealer
+		var d domain.Dealer
 		if err := rows.Scan(&d.Id, &d.DealerName, &d.StreetAddress, &d.State, &d.Zip,
 			&d.GeneralPhone, &d.DirectorOfService, &d.LogoURL); err != nil {
 			return nil, err

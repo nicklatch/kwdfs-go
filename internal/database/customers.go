@@ -1,23 +1,13 @@
 package database
 
-import "log"
-
-type Customer struct {
-	Id                   string `json:"id"`
-	SponsoringDealer     string `json:"dealer"`
-	Name                 string `json:"name"`
-	State                string `json:"state"`
-	PfleetAcctId         string `json:"pfleet_acct_id"`
-	Status               string `json:"status"`
-	TruckQty             int    `json:"truck_qty"`
-	FleetSupportRep      string `json:"fleet_support_rep"`
-	FieldServiceRep      string `json:"field_service_rep"`
-	FieldServiceRepEmail string `json:"field_service_rep_email"`
-}
+import (
+	"log"
+	"nicklatch/kwdfs-go/internal/domain"
+)
 
 // GetAllCustomers is a Service method that returns
 // either a slice of all customers, or an error
-func (s Service) GetAllCustomers() ([]Customer, error) {
+func (s Service) GetAllCustomers() ([]domain.Customer, error) {
 	// see ./dealers for comments to explain what takes place below
 	rows, err := s.db.Query(`
 select
@@ -34,10 +24,10 @@ from
 	}
 	defer rows.Close()
 
-	var customers []Customer
+	var customers []domain.Customer
 
 	for rows.Next() {
-		var c Customer
+		var c domain.Customer
 		if err := rows.Scan(&c.SponsoringDealer, &c.Name, &c.State, &c.PfleetAcctId,
 			&c.Status, &c.TruckQty, &c.FleetSupportRep, &c.FieldServiceRep, &c.FieldServiceRepEmail); err != nil {
 			return nil, err

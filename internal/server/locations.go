@@ -5,18 +5,18 @@ import (
 	"net/http"
 )
 
-func (s *Server) LocationHandler(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) locationHandler(rw http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:    "Locations",
 		Endpoint: "locations",
 	}
-	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
+	err := s.tmpl.ExecuteTemplate(rw, "base.html", data)
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
-func (s *Server) LocationsGetTable(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) locationsGetTable(rw http.ResponseWriter, r *http.Request) {
 	data, err := s.db.GetAllLocations()
 	if err != nil {
 		log.Println(err)
@@ -29,5 +29,5 @@ func (s *Server) LocationsGetTable(rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(500) // TODO: tmpl fragment to return
 	}
 
-	log.Printf("LocationsGetTable: Method=%v", r.Method)
+	log.Printf("locationsGetTable: Method=%v", r.Method)
 }

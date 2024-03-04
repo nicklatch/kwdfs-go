@@ -13,7 +13,7 @@ import (
 
 var files = []string{
 	// pages
-	"cmd/web/templates/pages/index.html",
+	"cmd/web/templates/pages/base.html",
 	"cmd/web/templates/pages/login.html",
 	// shared components
 	"cmd/web/templates/components/shared/base-head.html",

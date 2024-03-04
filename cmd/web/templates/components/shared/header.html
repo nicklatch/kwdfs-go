@@ -3,9 +3,9 @@
     <a href="/" class="md:text-2xl sm:text-xl text-center font-semibold drop-shadow-md"><span
             class="text-red-700 ">Kenworth Dealer</span> Fleet Services</a>
     <nav aria-label="Global">
-        <ul class="flex md:text-lg space-x-4">
+        <ul class="hidden md:flex md:text-lg space-x-4 ">
             <li>
-                <button hx-get="/api/dealers" hx-push-url="/dealers" hx-target="#content" >Dealers</button>
+                <button hx-get="/api/dealers" hx-push-url="/dealers" hx-target="#content">Dealers</button>
             </li>
             <li>
                 <button hx-get="/api/locations" hx-push-url="/locations" hx-target="#content">Locations</button>
@@ -16,5 +16,24 @@
             <li class="px-2 bg-red-700 rounded-md shadow-md text-base"><a href="/login">Logout</a></li>
         </ul>
     </nav>
+    <!--Menu for mobile/small screens-->
+    <button popovertarget="menu" class="transition-all px-2 bg-red-700 rounded-md shadow-md text-base">Menu</button>
+    <div popover id="menu" role="menu" class="bg-transparent transition-all">
+        <nav aria-label="Global"
+             class="transition-all flex justify-center items-center p-4 shadow-md rounded-lg  space-x-4 space-y-6 bg-gradient-to-r from-neutral-100 to-neutral-200">
+            <ul class="text-center">
+                <li>
+                    <button hx-get="/api/dealers" hx-push-url="/dealers" hx-target="#content">Dealers</button>
+                </li>
+                <li>
+                    <button hx-get="/api/locations" hx-push-url="/locations" hx-target="#content">Locations</button>
+                </li>
+                <li>
+                    <button hx-get="/api/customers" hx-push-url="/customers" hx-target="#content">Customers</button>
+                </li>
+                <li class="px-2 bg-red-700 rounded-md shadow-md text-base text-white"><a href="/login">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 {{end}}

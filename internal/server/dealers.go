@@ -3,15 +3,11 @@ package server
 import (
 	"log"
 	"net/http"
-	"nicklatch/kwdfs-go/internal/database"
-	"time"
 )
 
-var templCache = make(map[time.Time][]database.Dealer)
-
-func (s *Server) DealerHandler(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) dealerHandler(rw http.ResponseWriter, r *http.Request) {
 	data := PageData{Title: "Dealers", Endpoint: "dealers"}
-	err := s.tmpl.ExecuteTemplate(rw, "index.html", data)
+	err := s.tmpl.ExecuteTemplate(rw, "base.html", data)
 	if err != nil {
 		log.Println(err)
 		rw.WriteHeader(500)
@@ -19,17 +15,17 @@ func (s *Server) DealerHandler(rw http.ResponseWriter, r *http.Request) {
 	log.Println(r)
 }
 
-func (s *Server) DealersGetTable(rw http.ResponseWriter, r *http.Request) {
+func (s *Server) dealersGetTable(rw http.ResponseWriter, r *http.Request) {
 	data, err := s.db.GetAllDealerGroups()
 	if err != nil {
 		log.Println(err)
 		rw.WriteHeader(400) // TODO: tmpl fragment to return
 	}
 
-	err = s.tmpl.ExecuteTemplate(rw, "dealers-table", data) // TODO: need to add db service back in here
+	err = s.tmpl.ExecuteTemplate(rw, "dealers-table", data)
 	if err != nil {
 		log.Println(err)
 		rw.WriteHeader(500) // TODO: tmpl fragment to return
 	}
-	log.Printf("DealersGetTable: Method: %v", r.Method)
+	log.Printf("dealersGetTable: Method: %v", r.Method)
 }

@@ -2,22 +2,12 @@ package database
 
 import (
 	"log"
+	"nicklatch/kwdfs-go/internal/domain"
 )
-
-type Location struct {
-	Id                   string `json:"id"`
-	DealerName           string `json:"dealer"`
-	BranchName           string `json:"branch_name"`
-	State                string `json:"state"`
-	City                 string `json:"city_county"`
-	FleetSupportRep      string `json:"fleet_support_rep"`
-	FleetSupportRepEmail string `json:"fleet_support_rep_email"`
-	GeneralPhone         string `json:"general_phone"`
-}
 
 // GetAllLocations is a Service method that returns
 // either a slice of all locations, or an error
-func (s Service) GetAllLocations() ([]Location, error) {
+func (s Service) GetAllLocations() ([]domain.Location, error) {
 	// see ./dealers for comments to explain what takes place below
 	rows, err := s.db.Query(`
 select
@@ -34,10 +24,10 @@ from
 	}
 	defer rows.Close()
 
-	var locations []Location
+	var locations []domain.Location
 
 	for rows.Next() {
-		var l Location
+		var l domain.Location
 		if err := rows.Scan(&l.DealerName, &l.BranchName, &l.State, &l.City,
 			&l.FleetSupportRep, &l.FleetSupportRepEmail, &l.GeneralPhone); err != nil {
 			return nil, err
