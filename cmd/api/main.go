@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/charmbracelet/log"
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
-	"log"
 	database "nicklatch/kwdfs-go/internal/database/sqlc"
 	"nicklatch/kwdfs-go/internal/server"
 	"os"
@@ -14,7 +14,6 @@ import (
 func main() {
 
 	ctx := context.Background()
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -28,6 +27,7 @@ func main() {
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_DATABASE"),
 	)
+
 	conn, err := pgx.Connect(ctx, connStr)
 	if err != nil {
 		log.Fatal(err)
@@ -38,10 +38,9 @@ func main() {
 
 	err = s.ListenAndServe()
 	if err != nil {
-		panic(fmt.Sprintf("cannot start server: %s", err))
+		log.Fatalf("cannot start server: %s", err)
 	}
 }
 
 // NOTE: I know the db connection handling is hacky, but it'll work for now
-
 // TODO: Graceful shutdown impl and db connection improvement

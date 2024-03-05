@@ -1,7 +1,6 @@
 package server
 
 import (
-	"log"
 	"net/http"
 	"nicklatch/kwdfs-go/cmd/web"
 )
@@ -35,30 +34,35 @@ func (s *Server) RegisteredRoutes() http.Handler {
 	return mux
 }
 
-func (s *Server) loginHandler(rw http.ResponseWriter, _ *http.Request) {
+func (s *Server) loginHandler(rw http.ResponseWriter, req *http.Request) {
 	data := struct {
 		Title string
 	}{Title: "Login"}
-	err := s.tmpl.ExecuteTemplate(rw, "login.html", data)
+	err := s.tmpl.ExecuteTemplate(rw, "login.gohtml", data)
 	if err != nil {
-		log.Print(err)
+		s.log.Error(err)
 	}
+
+	s.log.Infof("%v", req.Method)
 }
 
-func (s *Server) rootHandler(rw http.ResponseWriter, _ *http.Request) {
+func (s *Server) rootHandler(rw http.ResponseWriter, req *http.Request) {
 	data := PageData{
 		Title:    "Home",
 		Endpoint: "index",
 	}
-	err := s.tmpl.ExecuteTemplate(rw, "base.html", data)
+	err := s.tmpl.ExecuteTemplate(rw, "base.gohtml", data)
 	if err != nil {
-		log.Print(err)
+		s.log.Error(err)
 	}
+	s.log.Infof("%v", req.Method)
 }
 
-func (s *Server) indexRootContentHandler(rw http.ResponseWriter, _ *http.Request) {
+func (s *Server) indexRootContentHandler(rw http.ResponseWriter, req *http.Request) {
 	err := s.tmpl.ExecuteTemplate(rw, "index-content", nil)
 	if err != nil {
-		log.Print(err)
+		s.log.Error(err)
 	}
+
+	s.log.Infof("%v", req.Method)
 }
