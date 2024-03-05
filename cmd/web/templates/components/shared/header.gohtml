@@ -1,0 +1,59 @@
+{{ define "header" }}
+    <header class="flex justify-between items-center py-4 px-6 text-white shadow-lg">
+        <a href="/" class="md:text-2xl sm:text-xl text-center font-semibold drop-shadow-md"><span
+                    class="text-red-700 ">Kenworth Dealer</span> Fleet Services</a>
+        <nav aria-label="Global">
+            <ul class="hidden md:flex md:text-lg space-x-4 ">
+                <li class="flex flex-col">
+                    <button hx-get="/api/dealers" hx-push-url="/dealers" hx-target="#content">Dealers</button>
+                </li>
+                <li>
+                    <button hx-get="/api/locations" hx-push-url="/locations" hx-target="#content">Locations</button>
+                </li>
+                <li>
+                    <button hx-get="/api/customers" hx-push-url="/customers" hx-target="#content">Customers</button>
+                </li>
+                <li class="px-2 bg-red-700 rounded-md shadow-md text-base"><a href="/login">Logout</a></li>
+            </ul>
+        </nav>
+        <!--Menu for mobile/small screens-->
+        <div id="menu-container" class="md:hidden">
+            <button id="menu-close" popovertarget="menu"
+                    class="transition-all px-2 bg-red-700 rounded-md shadow-md text-base">Menu
+            </button>
+            <div popover id="menu" role="menu" class="bg-transparent w-1/2 top">
+                <nav
+                        aria-label="Global"
+                        class="transition-all p-4 shadow-md rounded-lg space-x-4 space-y-14 bg-neutral-900">
+                    <ul class="text-center text-xl text-white">
+                        <li>
+                            <button popovertarget="menu" popovertargetaction="hide">
+                                {{ template "close" }}
+                            </button>
+                        </li>
+                        <li>
+                            <button hx-get="/api/dealers" hx-push-url="/dealers"
+                                    hx-target="#content" popovertarget="menu">
+                            </button>
+                        </li>
+                        <li>
+                            <button hx-get="/api/locations" hx-push-url="/locations" hx-target="#content"
+                                    popovertarget="menu" popovertargetaction="hide">Locations
+                            </button>
+                        </li>
+                        <li>
+                            <button hx-get="/api/customers" hx-push-url="/customers" hx-target="#content"
+                                    popovertarget="menu" popovertargetaction="hide">Customers
+                            </button>
+                        </li>
+                        <li class="px-2 bg-red-700 rounded-md shadow-md text-base text-white mx-auto mt-2 w-3/6">
+                            <a popovertarget="menu"
+                               popovertargetaction="hide"
+                               href="/login">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+{{end}}
