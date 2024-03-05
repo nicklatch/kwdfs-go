@@ -31,7 +31,7 @@ func (s *Server) RegisteredRoutes() http.Handler {
 
 	mux.HandleFunc("GET /customers", s.customerHandler)
 	mux.HandleFunc("GET /api/customers", s.customersGetTable)
-	mux.HandleFunc("GET /api/customers/{name}", s.customersGetOne)
+	//mux.HandleFunc("GET /api/customers/{name}", s.customersGetOne)
 
 	return mux
 }
