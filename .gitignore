@@ -18,6 +18,7 @@ cmd/web/assets/output.css
 # Go workspace file
 go.work
 tmp/
+sqlc.yaml
 
 # IDE specific files
 .vscode
