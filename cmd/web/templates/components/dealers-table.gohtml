@@ -21,6 +21,7 @@
                 <th data-sort="int">Zip</th>
                 <th data-sort="int">General Phone</th>
                 <th data-sort="string">Director Of Service</th>
+                <th>Options</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +33,7 @@
                 <td>{{.Zip.String}}</td>
                 <td>{{.GeneralPhone}}</td>
                 <td>{{.DirectorOfService.String}}</td>
+                <td>{{ template "table-buttons" }}</td>
             </tr>
             {{ end }}
             </tbody>
