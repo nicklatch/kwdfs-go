@@ -21,3 +21,9 @@ SELECT d.dealer,
 FROM locations l
          INNER JOIN dealers d ON l.dealer = d.id
 WHERE l.branch_name = $1;
+
+-- name: CreateLocation :one
+INSERT INTO locations (id, dealer, branch_name, state, city_county, fleet_support_rep, fleet_support_rep_email,
+                       general_phone)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING *;
