@@ -29,6 +29,4 @@ func (s *Server) locationsGetTable(rw http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		rw.WriteHeader(500) // TODO: tmpl fragment to return
 	}
-
-	log.Printf("locationsGetTable: Method=%v", r.Method)
 }

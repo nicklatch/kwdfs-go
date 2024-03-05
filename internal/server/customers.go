@@ -27,17 +27,3 @@ func (s *Server) customersGetTable(rw http.ResponseWriter, _ *http.Request) {
 		rw.WriteHeader(500) // TODO: tmpl fragment to return
 	}
 }
-
-//func (s *Server) customersGetOne(rw http.ResponseWriter, r *http.Request) {
-//	//cust, err := s.db.(r.PathValue("name"))
-//
-//	//if err != nil {
-//	//	log.Println(err)
-//	//	rw.WriteHeader(http.StatusInternalServerError)
-//	//}
-//	//
-//	//log.Println(cust)
-//	//
-//	//// returns no-content(204) because htmx will swap in the information on the frontend
-//	//err = s.tmpl.ExecuteTemplate(rw, "customers-table", cust)
-//}
