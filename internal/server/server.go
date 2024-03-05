@@ -16,12 +16,15 @@ var files = []string{
 	// pages
 	"cmd/web/templates/pages/base.gohtml",
 	"cmd/web/templates/pages/login.gohtml",
+
 	// shared components
 	"cmd/web/templates/components/shared/base-head.gohtml",
 	"cmd/web/templates/components/shared/header.gohtml",
 	"cmd/web/templates/components/shared/footer.gohtml",
 	"cmd/web/templates/components/shared/content.gohtml",
 	"cmd/web/templates/components/shared/close.gohtml",
+	"cmd/web/templates/components/shared/table-buttons.gohtml",
+
 	// tables and other content components
 	"cmd/web/templates/components/index-content.gohtml",
 	"cmd/web/templates/components/dealers-table.gohtml",
