@@ -26,12 +26,12 @@
             <tbody>
             {{ range . }}
             <tr class="border-t dark:border-neutral-900">
-                <th scope="row" class="px-2 py-4">{{.DealerName}}</th>
+                <th scope="row" class="px-2 py-4">{{.Dealer}}</th>
                 <td>{{.StreetAddress}}</td>
                 <td>{{.State}}</td>
-                <td>{{.Zip}}</td>
+                <td>{{.Zip.String}}</td>
                 <td>{{.GeneralPhone}}</td>
-                <td>{{.DirectorOfService}}</td>
+                <td>{{.DirectorOfService.String}}</td>
             </tr>
             {{ end }}
             </tbody>

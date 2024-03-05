@@ -27,13 +27,13 @@
             <tbody>
             {{ range . }}
             <tr class="border-t">
-                <th scope="row" class="px-2 py-4">{{.DealerName}}</th>
+                <th scope="row" class="px-2 py-4">{{.Dealer}}</th>
                 <td>{{.BranchName}}</td>
-                <td>{{.City}}</td>
+                <td>{{.CityCounty}}</td>
                 <td>{{.State}}</td>
-                <td>{{.GeneralPhone}}</td>
+                <td>{{.GeneralPhone.String}}</td>
                 <td>{{.FleetSupportRep}}</td>
-                <td>{{.FleetSupportRepEmail}}</td>
+                <td>{{.FleetSupportRepEmail.String}}</td>
             </tr>
             {{ end }}
             </tbody>
