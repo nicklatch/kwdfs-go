@@ -35,3 +35,19 @@
         @apply px-2 py-4
     }
 }
+
+[data-sort]:hover {
+    cursor: pointer;
+}
+
+[data-dir] {
+    content: " 🡅";
+}
+
+[data-dir="asc"]:after {
+    content: " 🡅";
+}
+
+[data-dir="desc"]:after {
+    content: " 🡇";
+}
