@@ -26,7 +26,13 @@ FROM customers c
 WHERE c.name = $1;
 
 -- name: CreateCustomer :one
-INSERT INTO customers (dealer, name, state, pfleet_acct_id, truck_qty, fleet_support_rep, field_service_rep,
+INSERT INTO customers (dealer,
+                       name,
+                       state,
+                       pfleet_acct_id,
+                       truck_qty,
+                       fleet_support_rep,
+                       field_service_rep,
                        field_service_rep_email)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 RETURNING *;
