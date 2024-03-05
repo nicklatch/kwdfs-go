@@ -5,7 +5,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"html/template"
 	"net/http"
-	"nicklatch/kwdfs-go/internal/database"
+	database "nicklatch/kwdfs-go/internal/database/sqlc"
 	"os"
 	"strconv"
 	"time"
@@ -32,15 +32,15 @@ var files = []string{
 type Server struct {
 	port int
 	tmpl *template.Template
-	db   database.Service
+	db   *database.Queries
 }
 
-func NewServer() *http.Server {
+func NewServer(db *database.Queries) *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{
 		port: port,
 		tmpl: template.Must(template.ParseFiles(files...)),
-		db:   database.New(),
+		db:   db,
 	}
 
 	server := &http.Server{
