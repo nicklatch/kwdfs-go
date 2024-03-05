@@ -11,6 +11,50 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const createCustomer = `-- name: CreateCustomer :one
+INSERT INTO customers (dealer, name, state, pfleet_acct_id, truck_qty, fleet_support_rep, field_service_rep, field_service_rep_email)
+VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING id, dealer, name, state, pfleet_acct_id, status, truck_qty, fleet_support_rep, field_service_rep, field_service_rep_email
+`
+
+type CreateCustomerParams struct {
+	Dealer               pgtype.UUID `json:"dealer"`
+	Name                 string      `json:"name"`
+	State                string      `json:"state"`
+	PfleetAcctID         pgtype.Text `json:"pfleet_acct_id"`
+	TruckQty             int16       `json:"truck_qty"`
+	FleetSupportRep      string      `json:"fleet_support_rep"`
+	FieldServiceRep      pgtype.Text `json:"field_service_rep"`
+	FieldServiceRepEmail pgtype.Text `json:"field_service_rep_email"`
+}
+
+func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) (Customer, error) {
+	row := q.db.QueryRow(ctx, createCustomer,
+		arg.Dealer,
+		arg.Name,
+		arg.State,
+		arg.PfleetAcctID,
+		arg.TruckQty,
+		arg.FleetSupportRep,
+		arg.FieldServiceRep,
+		arg.FieldServiceRepEmail,
+	)
+	var i Customer
+	err := row.Scan(
+		&i.ID,
+		&i.Dealer,
+		&i.Name,
+		&i.State,
+		&i.PfleetAcctID,
+		&i.Status,
+		&i.TruckQty,
+		&i.FleetSupportRep,
+		&i.FieldServiceRep,
+		&i.FieldServiceRepEmail,
+	)
+	return i, err
+}
+
 const getAllCustomers = `-- name: GetAllCustomers :many
 SELECT d.dealer,
        c.name,
@@ -65,4 +109,48 @@ func (q *Queries) GetAllCustomers(ctx context.Context) ([]GetAllCustomersRow, er
 		return nil, err
 	}
 	return items, nil
+}
+
+const getOneCustomer = `-- name: GetOneCustomer :one
+SELECT d.dealer,
+       c.name,
+       c.state,
+       c.pfleet_acct_id,
+       c.status,
+       c.truck_qty,
+       c.fleet_support_rep,
+       c.field_service_rep,
+       c.field_service_rep_email
+FROM customers c
+         INNER JOIN dealers d ON c.dealer = d.id
+WHERE c.name = $1
+`
+
+type GetOneCustomerRow struct {
+	Dealer               string          `json:"dealer"`
+	Name                 string          `json:"name"`
+	State                string          `json:"state"`
+	PfleetAcctID         pgtype.Text     `json:"pfleet_acct_id"`
+	Status               NullFleetStatus `json:"status"`
+	TruckQty             int16           `json:"truck_qty"`
+	FleetSupportRep      string          `json:"fleet_support_rep"`
+	FieldServiceRep      pgtype.Text     `json:"field_service_rep"`
+	FieldServiceRepEmail pgtype.Text     `json:"field_service_rep_email"`
+}
+
+func (q *Queries) GetOneCustomer(ctx context.Context, name string) (GetOneCustomerRow, error) {
+	row := q.db.QueryRow(ctx, getOneCustomer, name)
+	var i GetOneCustomerRow
+	err := row.Scan(
+		&i.Dealer,
+		&i.Name,
+		&i.State,
+		&i.PfleetAcctID,
+		&i.Status,
+		&i.TruckQty,
+		&i.FleetSupportRep,
+		&i.FieldServiceRep,
+		&i.FieldServiceRepEmail,
+	)
+	return i, err
 }

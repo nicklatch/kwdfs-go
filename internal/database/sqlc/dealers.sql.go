@@ -7,10 +7,55 @@ package database
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const createDealer = `-- name: CreateDealer :one
+INSERT INTO dealers (dealer, street_address, state, zip, general_phone, director_of_service, logo_url)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
+RETURNING id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url, created_at, updated_at
+`
+
+type CreateDealerParams struct {
+	Dealer            string      `json:"dealer"`
+	StreetAddress     string      `json:"street_address"`
+	State             string      `json:"state"`
+	Zip               pgtype.Text `json:"zip"`
+	GeneralPhone      string      `json:"general_phone"`
+	DirectorOfService pgtype.Text `json:"director_of_service"`
+	LogoUrl           pgtype.Text `json:"logo_url"`
+}
+
+func (q *Queries) CreateDealer(ctx context.Context, arg CreateDealerParams) (Dealer, error) {
+	row := q.db.QueryRow(ctx, createDealer,
+		arg.Dealer,
+		arg.StreetAddress,
+		arg.State,
+		arg.Zip,
+		arg.GeneralPhone,
+		arg.DirectorOfService,
+		arg.LogoUrl,
+	)
+	var i Dealer
+	err := row.Scan(
+		&i.ID,
+		&i.Dealer,
+		&i.StreetAddress,
+		&i.State,
+		&i.Zip,
+		&i.GeneralPhone,
+		&i.DirectorOfService,
+		&i.LogoUrl,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const getAllDealers = `-- name: GetAllDealers :many
-SELECT id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url FROM dealers
+SELECT id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url, created_at, updated_at
+FROM dealers
 `
 
 func (q *Queries) GetAllDealers(ctx context.Context) ([]Dealer, error) {
@@ -31,6 +76,8 @@ func (q *Queries) GetAllDealers(ctx context.Context) ([]Dealer, error) {
 			&i.GeneralPhone,
 			&i.DirectorOfService,
 			&i.LogoUrl,
+			&i.CreatedAt,
+			&i.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}
@@ -43,7 +90,8 @@ func (q *Queries) GetAllDealers(ctx context.Context) ([]Dealer, error) {
 }
 
 const getDealerByName = `-- name: GetDealerByName :one
-SELECT id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url FROM dealers
+SELECT id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url, created_at, updated_at
+FROM dealers
 WHERE dealer = $1
 `
 
@@ -59,12 +107,15 @@ func (q *Queries) GetDealerByName(ctx context.Context, dealer string) (Dealer, e
 		&i.GeneralPhone,
 		&i.DirectorOfService,
 		&i.LogoUrl,
+		&i.CreatedAt,
+		&i.UpdatedAt,
 	)
 	return i, err
 }
 
 const getDealersByState = `-- name: GetDealersByState :many
-SELECT id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url FROM dealers
+SELECT id, dealer, street_address, state, zip, general_phone, director_of_service, logo_url, created_at, updated_at
+FROM dealers
 WHERE state = $1
 `
 
@@ -86,6 +137,8 @@ func (q *Queries) GetDealersByState(ctx context.Context, state string) ([]Dealer
 			&i.GeneralPhone,
 			&i.DirectorOfService,
 			&i.LogoUrl,
+			&i.CreatedAt,
+			&i.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}

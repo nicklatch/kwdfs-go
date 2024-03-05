@@ -11,6 +11,49 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const createLocation = `-- name: CreateLocation :one
+INSERT INTO locations (id, dealer, branch_name, state, city_county, fleet_support_rep, fleet_support_rep_email,
+                       general_phone)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING id, dealer, branch_name, state, city_county, fleet_support_rep, fleet_support_rep_email, general_phone
+`
+
+type CreateLocationParams struct {
+	ID                   string      `json:"id"`
+	Dealer               pgtype.UUID `json:"dealer"`
+	BranchName           string      `json:"branch_name"`
+	State                string      `json:"state"`
+	CityCounty           string      `json:"city_county"`
+	FleetSupportRep      string      `json:"fleet_support_rep"`
+	FleetSupportRepEmail pgtype.Text `json:"fleet_support_rep_email"`
+	GeneralPhone         pgtype.Text `json:"general_phone"`
+}
+
+func (q *Queries) CreateLocation(ctx context.Context, arg CreateLocationParams) (Location, error) {
+	row := q.db.QueryRow(ctx, createLocation,
+		arg.ID,
+		arg.Dealer,
+		arg.BranchName,
+		arg.State,
+		arg.CityCounty,
+		arg.FleetSupportRep,
+		arg.FleetSupportRepEmail,
+		arg.GeneralPhone,
+	)
+	var i Location
+	err := row.Scan(
+		&i.ID,
+		&i.Dealer,
+		&i.BranchName,
+		&i.State,
+		&i.CityCounty,
+		&i.FleetSupportRep,
+		&i.FleetSupportRepEmail,
+		&i.GeneralPhone,
+	)
+	return i, err
+}
+
 const getAllLocations = `-- name: GetAllLocations :many
 SELECT d.dealer,
        l.branch_name,

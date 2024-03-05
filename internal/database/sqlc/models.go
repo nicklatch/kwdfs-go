@@ -125,7 +125,9 @@ type Dealer struct {
 	// First and last name
 	DirectorOfService pgtype.Text `json:"director_of_service"`
 	// url for s3
-	LogoUrl pgtype.Text `json:"logo_url"`
+	LogoUrl   pgtype.Text        `json:"logo_url"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
 }
 
 type Location struct {
