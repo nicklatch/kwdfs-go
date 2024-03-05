@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"log"
 	"net/http"
 )
@@ -17,7 +18,7 @@ func (s *Server) locationHandler(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) locationsGetTable(rw http.ResponseWriter, r *http.Request) {
-	data, err := s.db.GetAllLocations()
+	data, err := s.db.GetAllLocations(context.Background())
 	if err != nil {
 		log.Println(err)
 		rw.WriteHeader(400) // TODO: tmpl fragment to return

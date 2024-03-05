@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"log"
 	"net/http"
 )
@@ -16,7 +17,7 @@ func (s *Server) dealerHandler(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) dealersGetTable(rw http.ResponseWriter, r *http.Request) {
-	data, err := s.db.GetAllDealerGroups()
+	data, err := s.db.GetAllDealers(context.Background())
 	if err != nil {
 		log.Println(err)
 		rw.WriteHeader(400) // TODO: tmpl fragment to return
