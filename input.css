@@ -7,7 +7,7 @@
         @apply subpixel-antialiased
     }
 
-    body {
+    body, #dealer-edit > form {
         @apply bg-gradient-to-b from-gray-200 to-gray-400
     }
 
@@ -38,10 +38,6 @@
 
 [data-sort]:hover {
     cursor: pointer;
-}
-
-[data-dir] {
-    content: " 🡅";
 }
 
 [data-dir="asc"]:after {
