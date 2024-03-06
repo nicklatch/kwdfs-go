@@ -31,6 +31,7 @@ var files = []string{
 	"cmd/web/templates/components/locations-table.gohtml",
 	"cmd/web/templates/components/customers-table.gohtml",
 	"cmd/web/templates/components/maps.gohtml",
+	"cmd/web/templates/components/dealer_edit.gohtml",
 }
 
 type Server struct {
